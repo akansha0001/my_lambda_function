@@ -19,11 +19,12 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
 
+//table format
 type MyDataFromS3 struct {
 	FileKey    string
+	updatetime string
 	Month      string
 	Cupcake    string
-	updatetime time.Time
 }
 
 func main() {
@@ -90,10 +91,13 @@ func extractData(data string) []MyDataFromS3 {
 			if len(data[0]) == 0 {
 				break
 			}
+
 			temp := MyDataFromS3{
-				FileKey: strconv.Itoa(index),
-				Month:   data[0],
-				Cupcake: data[1]}
+				FileKey:    strconv.Itoa(index),
+				updatetime: time.Now().String(),
+				Month:      data[0],
+				Cupcake:    data[1],
+			}
 			arraydata = append(arraydata, temp)
 		}
 	}
